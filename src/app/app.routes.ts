@@ -1,14 +1,9 @@
 import { Routes } from '@angular/router';
-import { InicioComponent } from './paginas/inicio/inicio.component';
-import { LoginComponent } from './paginas/login/login.component';
-import { RegistroComponent } from './paginas/registro/registro.component';
-import { CrearReporteComponent } from './paginas/crear-reporte/crear-reporte.component';
-
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
-   { path: '', component: InicioComponent },
-   { path: 'login', component: LoginComponent },
-   { path: 'registro', component: RegistroComponent },
-   { path: 'crear-reporte', component: CrearReporteComponent },
-   { path: "**", pathMatch: "full", redirectTo: "" }
+  { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegisterComponent },
+  { path: '**', redirectTo: 'login' }
 ];
