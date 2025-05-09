@@ -1,37 +1,60 @@
+<div class="login-container">
+  <div class="login-left">
+    <img  src="assets/02.jpeg" alt="Imagen de accidente" />
+  </div>
+
+
+<div class="login-right">
+
 <h2 class="title">Registro de Usuario</h2>
 
-<form (ngSubmit)="onRegister()" class="form-container" #registerForm="ngForm">
+    <form (ngSubmit)="onRegister()" class="form-container" #registerForm="ngForm">
 
-  <div class="double-field">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nombre completo</mat-label>
-      <input matInput name="nombre" [(ngModel)]="nombre" required>
-    </mat-form-field>
+      <div class="double-field">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre completo</mat-label>
+          <input matInput name="nombre" [(ngModel)]="nombre" required>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Teléfono</mat-label>
-      <input matInput name="telefono" [(ngModel)]="telefono" required>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput name="telefono" [(ngModel)]="telefono" required>
+        </mat-form-field>
+      </div>
+
+      <div class="double-field">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ciudad</mat-label>
+          <input matInput name="ciudad" [(ngModel)]="ciudad" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput type="email" name="email" [(ngModel)]="email" required>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" name="password" [(ngModel)]="password" required>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" class="submit-btn">
+          Registrarse
+        </button>
+  
+      </div>
+
+      <div >
+        <p class="forgot-password">
+          ¿Ya tiene cuenta? Haga click <a href="#" (click)="goToLogin(); $event.preventDefault()" >Aquí</a>.
+        </p>
+        <p class="forgot-password">
+          ¿Para verificar su identidad? Haga click <a href="#" (click)="goToAuthenticate(); $event.preventDefault()">Aquí</a>
+        </p>       
+      </div>
+    </form>
+
   </div>
-
-  <div class="double-field">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Ciudad</mat-label>
-      <input matInput name="ciudad" [(ngModel)]="ciudad" required>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Correo electrónico</mat-label>
-      <input matInput type="email" name="email" [(ngModel)]="email" required>
-    </mat-form-field>
-  </div>
-
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Contraseña</mat-label>
-    <input matInput type="password" name="password" [(ngModel)]="password" required>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit" class="submit-btn">
-    Registrarse
-  </button>
-</form>
+</div>
