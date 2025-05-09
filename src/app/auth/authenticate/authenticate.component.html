@@ -7,21 +7,16 @@
       <h2 class="title">Activar Cuenta</h2>
   
       <form (ngSubmit)="onActivateAccount()" #activateForm="ngForm" class="form-container">
-        
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Correo Electrónico</mat-label>
-          <input matInput type="email" name="email" [(ngModel)]="email" required>
-        </mat-form-field>
-  
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Código de Activación</mat-label>
           <input matInput type="text" name="codigo" [(ngModel)]="codigo" required>
         </mat-form-field>
-  
+      
         <div class="button-group">
           <button mat-raised-button color="primary" type="submit">Activar Cuenta</button>
         </div>
       </form>
+      
   
       <div class="other-options">
         <button mat-button (click)="reenviarCodigo()">Reenviar código</button>
