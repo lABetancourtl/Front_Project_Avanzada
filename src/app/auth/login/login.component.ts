@@ -44,7 +44,7 @@ export class LoginComponent {
 
           // Redirige a YouTube
           setTimeout(() => {
-            window.location.href = 'https://www.youtube.com/watch?v=HIxEaIBSiTI'; // Redirige a YouTube
+            window.location.href = '/dashboard';
           }, 3000); // Espera a que se cierre el snackbar antes de redirigir
         } 
       },
@@ -60,8 +60,6 @@ export class LoginComponent {
   }
 
   goToRegister() {
-    this.router.navigate(['/registro']); // Asegúrate de que esa ruta exista
+    this.router.navigate(['/registro']);
   }
-  
-
 }
