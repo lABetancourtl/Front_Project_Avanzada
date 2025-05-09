@@ -11,11 +11,17 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(data: any): Observable<any> {
-    // Este endpoint dependerá si tienes autenticación implementada - PENDIENTE
     return this.http.post(`${this.baseUrl}/auth/login`, data);
   }
 
   register(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/usuarios`, data);
   }
+
+  authenticate(data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/usuarios/activar`, data);
+  }
+  
+
+ 
 }
