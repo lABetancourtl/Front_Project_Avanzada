@@ -53,8 +53,6 @@ export class RegisterComponent {
           duration: 5000,
           panelClass: ['custom-snackbar']
         });
-  
-        this.router.navigate(['/autenticacion']);
       },
       error: err => {
         console.error('❌ Error en registro:', err);
