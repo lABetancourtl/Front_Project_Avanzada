@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { InicioComponent } from './dashboard/pages/inicio/inicio.component';
 import { ForgottenpasswordComponent } from './auth/forgottenpassword/forgottenpassword.component';
 import { NewpasswordComponent } from './auth/newpassword/newpassword.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: InicioComponent }
     ]
