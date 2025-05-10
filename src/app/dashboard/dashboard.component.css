@@ -11,12 +11,19 @@ aside {
   height: 100vh;
   background: #f4f4f4;
   width: 250px;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
   transition: width 0.3s ease;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  /* 🔧 Cambia esto: */
+  overflow-y: auto; /* permite scroll si es necesario */
+  overflow-x: hidden; /* evita desplazamiento horizontal */
 }
+
 
 aside.collapsed {
   width: 60px;
@@ -72,13 +79,16 @@ aside.collapsed .logout-btn span {
   width: 100%;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 40px;
   max-width: 200px;
   margin-inline: auto;
+
+  /* Clave para que se ubique al fondo del sidebar */
+  margin-top: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.2s;
 }
 
