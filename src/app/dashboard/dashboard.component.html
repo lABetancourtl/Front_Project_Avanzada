@@ -1,36 +1,62 @@
-<div class="dashboard-container">
-    <aside [class.collapsed]="!menuAbierto">
-      <button (click)="toggleMenu()" class="toggle-btn">
-        ☰
-      </button>
-  
-      <div class="menu-item disabled">
-        🗂️ <span *ngIf="menuAbierto">Ver todos los reportes</span>
-      </div>
-  
-      <div class="menu-item" (click)="navegar('/dashboard/reportes/crear')">
-        📝 <span *ngIf="menuAbierto">Reportar un incidente</span>
-      </div>
-  
-      <div class="menu-item" (click)="navegar('/dashboard/reportes/mis')">
-        📋 <span *ngIf="menuAbierto">Mis reportes</span>
-      </div>
-  
-      <div class="menu-item disabled">
-        🔔 <span *ngIf="menuAbierto">Notificaciones</span>
-      </div>
-  
-      <div class="menu-item" (click)="navegar('/dashboard/perfil')">
-        ⚙️ <span *ngIf="menuAbierto">Editar perfil</span>
-      </div>
-  
-      <button class="logout-btn" (click)="cerrarSesion()">
-        🔒 <span *ngIf="menuAbierto">Cerrar Sesión</span>
-      </button>
-    </aside>
-  
-    <main>
-        <router-outlet></router-outlet>
-    </main>
-  </div>
-  
+<div class="dashboard-container d-flex vh-100">
+  <aside
+    class="sidebar bg-dark text-white d-flex flex-column"
+    [ngClass]="{
+      'collapsed': !menuAbierto,
+      'expanded': menuAbierto
+    }"
+  >
+    <button
+      (click)="toggleMenu()"
+      class="toggle-btn btn btn-sm btn-outline-light mb-3 align-self-end"
+    >
+      ☰
+    </button>
+
+    <div class="menu-item disabled d-flex align-items-center mb-2 px-2">
+      🗂️
+      <span *ngIf="menuAbierto" class="ms-2">Ver todos los reportes</span>
+    </div>
+
+    <div
+      class="menu-item d-flex align-items-center mb-2 px-2"
+      (click)="navegar('/dashboard/reportes/crear')"
+    >
+      📝
+      <span *ngIf="menuAbierto" class="ms-2">Reportar un incidente</span>
+    </div>
+
+    <div
+      class="menu-item d-flex align-items-center mb-2 px-2"
+      (click)="navegar('/dashboard/reportes/mis')"
+    >
+      📋
+      <span *ngIf="menuAbierto" class="ms-2">Mis reportes</span>
+    </div>
+
+    <div class="menu-item disabled d-flex align-items-center mb-2 px-2">
+      🔔
+      <span *ngIf="menuAbierto" class="ms-2">Notificaciones</span>
+    </div>
+
+    <div
+      class="menu-item d-flex align-items-center mb-2 px-2"
+      (click)="navegar('/dashboard/perfil')"
+    >
+      ⚙️
+      <span *ngIf="menuAbierto" class="ms-2">Editar perfil</span>
+    </div>
+
+    <button
+      class="logout-btn btn btn-sm btn-outline-light mt-auto mb-3 align-self-start px-2"
+      (click)="cerrarSesion()"
+    >
+      🔒
+      <span *ngIf="menuAbierto" class="ms-2">Cerrar Sesión</span>
+    </button>
+  </aside>
+
+  <main class="flex-grow-1 bg-light p-4 overflow-auto">
+    <router-outlet></router-outlet>
+  </main>
+</div>

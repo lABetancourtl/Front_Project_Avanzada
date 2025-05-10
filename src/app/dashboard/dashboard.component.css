@@ -1,85 +1,103 @@
 .dashboard-container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  aside {
-    background: #f4f4f4;
-    width: 250px;
-    padding: 1rem;
-    transition: width 0.3s;
-    position: relative;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  aside.collapsed {
-    width: 60px;
-  }
-  
-  aside.collapsed .menu-item span,
-  aside.collapsed .logout-btn span {
-    display: none;
-  }
-  
-  .toggle-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
-  
-  .menu-item {
-    display: flex;
-    align-items: center;
-    margin: 1rem 0;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-  
-  .menu-item:hover {
-    background: #e0e0e0;
-  }
-  
-  .menu-item.disabled {
-    cursor: not-allowed;
-    color: #999;
-    opacity: 0.7;
-  }
-  
-  .menu-item.disabled:hover {
-    background: none;
-  }
-  
-  .logout-btn {
-    background: #e53935;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    max-width: 200px;
-    margin-inline: auto;
-  }
-  
-  .logout-btn:hover {
-    background: #c62828;
-  }
-  
-  main {
-    flex: 1;
-    position: relative;
-  }
-  
-  #map {
-    width: 100%;
-    height: 100%;
-  }
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #f4f4f4;
+  width: 250px;
+  padding: 1rem;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+aside.collapsed {
+  width: 60px;
+}
+
+aside.collapsed .menu-item span,
+aside.collapsed .logout-btn span {
+  display: none;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: transform 0.3s;
+}
+
+.toggle-btn:hover {
+  transform: rotate(90deg);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.menu-item:hover {
+  background: #e0e0e0;
+}
+
+.menu-item.disabled {
+  cursor: not-allowed;
+  color: #999;
+  opacity: 0.7;
+}
+
+.menu-item.disabled:hover {
+  background: none;
+}
+
+.logout-btn {
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  max-width: 200px;
+  margin-inline: auto;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background: #c62828;
+}
+
+main {
+  margin-left: 60px; /* espacio mínimo reservado para el sidebar colapsado */
+  height: 100vh;
+  transition: margin-left 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Si prefieres que el contenido nunca se mueva, elimina este margen dinámico */
+/* Pero si algún día decides mover el contenido, puedes usar una clase y ajustar aquí */
+
+#map {
+  width: 100%;
+  height: 100%;
+}

@@ -11,12 +11,13 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent {
 
-  menuAbierto = true;
+  menuAbierto = false;
 
 toggleMenu() {
   this.menuAbierto = !this.menuAbierto;
   }
 
+  
 navegar(ruta: string) {
   window.location.href = ruta;
   }
