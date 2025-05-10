@@ -1,0 +1,108 @@
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReportesService } from '../../../services/reportes.service';
+import { MapaService } from '../../../services/mapa.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-crear-reporte',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSlideToggleModule
+  ],
+  templateUrl: './crear-reporte.component.html',
+  styleUrls: ['./crear-reporte.component.css']
+})
+export class CrearReporteComponent implements OnInit, AfterViewInit {
+
+  form!: FormGroup;
+  isEditing = false;
+  imagenBase64 = '';
+
+  categorias = [
+  { _id: '67fc6e1ff586163697311bdb', nombre: 'Robo' },
+  { _id: '67fc6e27f586163697311bdc', nombre: 'Accidente' },
+  { _id: '67fc6e31f586163697311bdd', nombre: 'Retén' },
+  { _id: '67fc6e3df586163697311bde', nombre: 'Hueco' },
+  { _id: '67fc6e50f586163697311bdf', nombre: 'Vía cerrada' },
+  { _id: '67fc77c7bc490130ac8e1413', nombre: 'Prueba 1' }
+];
+
+  constructor(
+    private fb: FormBuilder,
+    private reportesService: ReportesService,
+    private mapaService: MapaService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // Inicializamos el formulario
+    this.form = this.fb.group({
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      categoriaId: ['', Validators.required],
+      importante: [false],
+      foto: [''],
+      ubicacion: this.fb.group({
+        latitud: [0, Validators.required],
+        longitud: [0, Validators.required]
+      })
+    });
+  }
+
+  ngAfterViewInit(): void {
+    // Cargamos el mapa una vez esté el DOM listo
+    this.mapaService.crearMapa();
+
+    // Suscribimos para capturar coordenadas al hacer clic en el mapa
+    this.mapaService.agregarMarcador().subscribe(coords => {
+      this.form.get('ubicacion')?.patchValue({
+        latitud: coords.lat,
+        longitud: coords.lng
+      });
+    });
+  }
+
+  onImageSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenBase64 = reader.result as string;
+        this.form.get('foto')?.setValue(this.imagenBase64);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+onSubmit(): void {
+  if (this.form.valid) {
+    this.reportesService.crearReporte(this.form.value).subscribe({
+      next: () => {
+        alert('✅ Reporte enviado correctamente');
+        this.router.navigate(['/dashboard']); // ✅ Redirige usando Angular
+      },
+      error: err => {
+        console.error(err);
+        alert('❌ Error al enviar el reporte');
+      }
+    });
+  }
+}
+
+  cancelar(): void {
+    window.location.href = '/dashboard';
+  }
+}
