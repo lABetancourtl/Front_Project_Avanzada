@@ -34,24 +34,24 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     };
-
+  
     this.authService.login(userData).subscribe({
       next: (response) => {
         if (response && response.error === false && response.respuesta && response.respuesta.token) {
           // Si el login es exitoso, guarda el token en localStorage
-          localStorage.setItem('token', response.respuesta.token); 
+          localStorage.setItem('authToken', response.respuesta.token); 
           
           // Muestra un mensaje de éxito (popup)
           this.snackBar.open('¡Login exitoso! Redirigiendo...', 'Cerrar', {
             duration: 3000,  // El popup permanecerá visible durante 3 segundos
             panelClass: ['success-snackbar'] // Clase personalizada para el color
           });
-
-          // Redirige a YouTube
+  
+          // Redirige al dashboard usando router
           setTimeout(() => {
-            window.location.href = '/dashboard';
-          }, 3000); // Espera a que se cierre el snackbar antes de redirigir
-        } 
+            this.router.navigate(['/dashboard']);
+          }, 1000); // Espera a que se cierre el snackbar antes de redirigir
+        }
       },
       error: (error) => {
         this.errorMessage = 'Credenciales incorrectas';
@@ -63,6 +63,7 @@ export class LoginComponent {
       }
     });
   }
+  
 
   goToRegister() {
     this.router.navigate(['/registro']);
