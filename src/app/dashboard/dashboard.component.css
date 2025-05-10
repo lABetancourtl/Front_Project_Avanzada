@@ -5,23 +5,17 @@
 }
 
 aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
   background: #f4f4f4;
-  width: 250px;
-  padding: 1rem 1rem 2rem;
-  transition: width 0.3s ease;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-
+  position: fixed;
   display: flex;
   flex-direction: column;
-
-  /* 🔧 Cambia esto: */
-  overflow-y: auto; /* permite scroll si es necesario */
-  overflow-x: hidden; /* evita desplazamiento horizontal */
+  justify-content: space-between;
+  height: 100vh;
+  
+  width: 200px;
+  padding: 0rem 1rem 1rem 1rem;
+  transition: width 0.3s ease;
+  z-index: 1000;
 }
 
 

@@ -31,14 +31,8 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
   isEditing = false;
   imagenBase64 = '';
 
-  categorias = [
-  { _id: '67fc6e1ff586163697311bdb', nombre: 'Robo' },
-  { _id: '67fc6e27f586163697311bdc', nombre: 'Accidente' },
-  { _id: '67fc6e31f586163697311bdd', nombre: 'Retén' },
-  { _id: '67fc6e3df586163697311bde', nombre: 'Hueco' },
-  { _id: '67fc6e50f586163697311bdf', nombre: 'Vía cerrada' },
-  { _id: '67fc77c7bc490130ac8e1413', nombre: 'Prueba 1' }
-];
+  categorias: { _id: string; nombre: string }[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +42,7 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // Inicializamos el formulario
+    // Inicializar el formulario
     this.form = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -60,7 +54,28 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
         longitud: [0, Validators.required]
       })
     });
+  
+    // Obtener el token desde el almacenamiento local
+    const token = localStorage.getItem('authToken');
+    // Verificar si el token existe antes de hacer la solicitud
+    if (token) {
+      // Llamada al servicio para obtener las categorías, pasando el token en los headers
+      this.reportesService.getCategorias(token).subscribe({
+        next: categorias => {
+          console.log('🧠 Categorías recibidas:', categorias); // Este log debe aparecer
+          this.categorias = categorias;
+        },
+        error: err => {
+          console.error('❌ Error al cargar categorías', err);
+        }
+      });
+    } else {
+      console.error('❌ No se encontró el token');
+    }
   }
+  
+  
+  
 
   ngAfterViewInit(): void {
     // Cargamos el mapa una vez esté el DOM listo
