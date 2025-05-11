@@ -1,0 +1,30 @@
+<div class="admin-inicio-container">
+  <h1>🎛️ Panel de Administración</h1>
+  <p class="intro">Aquí puedes gestionar las principales funciones del sistema.</p>
+
+  <div class="admin-cards">
+    <div class="card" (click)="navegar('categorias')">
+      <div class="icon">📁</div>
+      <h3>Categorías</h3>
+      <p>Crear, editar o eliminar categorías de reportes.</p>
+    </div>
+
+    <div class="card" (click)="navegar('reportes')">
+      <div class="icon">📋</div>
+      <h3>Reportes</h3>
+      <p>Revisar y gestionar reportes enviados por los usuarios.</p>
+    </div>
+
+    <div class="card" (click)="navegar('resolver')">
+      <div class="icon">✅</div>
+      <h3>Resolver Reportes</h3>
+      <p>Marcar reportes como resueltos luego de la verificación.</p>
+    </div>
+
+    <div class="card" (click)="navegar('mi-cuenta')">
+      <div class="icon">⚙️</div>
+      <h3>Mi cuenta</h3>
+      <p>Gestiona tu perfil de administrador.</p>
+    </div>
+  </div>
+</div>
