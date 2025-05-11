@@ -21,14 +21,8 @@ export class ReportesService {
     return this.http.post(`${this.baseUrl}/crear`, data, { headers });
   }
 
-  getCategorias(token: string): Observable<any[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Pasando el token en los headers
-    });
-    
-    return this.http.get<any[]>(`http://localhost:8081/api/categorias/listar`, { headers });
-  }
-  
-  
-  
+getCategorias(token: string): Observable<{ id: string; nombre: string }[]> {
+  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+  return this.http.get<{ id: string; nombre: string }[]>(`http://localhost:8081/api/categorias/listar`, { headers });
+}
 }

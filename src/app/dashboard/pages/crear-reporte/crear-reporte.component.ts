@@ -30,7 +30,7 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   isEditing = false;
   imagenBase64 = '';
-  categorias: { _id: string; nombre: string }[] = [];
+  categorias: { id: string; nombre: string }[] = [];
 
 
   constructor(
