@@ -29,41 +29,46 @@ export class LoginComponent {
     private snackBar: MatSnackBar 
   ) {}
 
-  onLogin() {
-    const userData = {
-      email: this.email,
-      password: this.password
-    };
-  
-    this.authService.login(userData).subscribe({
-      next: (response) => {
-        if (response && response.error === false && response.respuesta && response.respuesta.token) {
-          // Si el login es exitoso, guarda el token en localStorage
-          localStorage.setItem('authToken', response.respuesta.token); 
-          
-          // Muestra un mensaje de éxito (popup)
-          this.snackBar.open('¡Login exitoso! Redirigiendo...', 'Cerrar', {
-            duration: 3000,  // El popup permanecerá visible durante 3 segundos
-            panelClass: ['success-snackbar'] // Clase personalizada para el color
-          });
-  
-          // Redirige al dashboard usando router
-          setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 1000); // Espera a que se cierre el snackbar antes de redirigir
-        }
-      },
-      error: (error) => {
-        this.errorMessage = 'Credenciales incorrectas';
-        console.error('Error de login:', error);
-        this.snackBar.open(this.errorMessage, 'Cerrar', {
-          duration: 3000,  // El popup permanecerá visible durante 3 segundos
-          panelClass: ['error-snackbar'] // Clase personalizada para el color
+// Paso 1: Detectar el rol desde el token y redirigir al panel adecuado
+onLogin() {
+  const userData = {
+    email: this.email,
+    password: this.password
+  };
+
+  this.authService.login(userData).subscribe({
+    next: (response) => {
+      if (response && response.error === false && response.respuesta && response.respuesta.token) {
+        const token = response.respuesta.token;
+        localStorage.setItem('authToken', token);
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const rol = payload.rol || payload.role || '';
+
+        this.snackBar.open('¡Login exitoso! Redirigiendo...', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
         });
+
+        setTimeout(() => {
+          if (rol === 'ADMINISTRADOR') {
+            this.router.navigate(['/dashboard-admin']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        }, 1000);
       }
-    });
-  }
-  
+    },
+    error: (error) => {
+      this.errorMessage = 'Credenciales incorrectas';
+      console.error('Error de login:', error);
+      this.snackBar.open(this.errorMessage, 'Cerrar', {
+        duration: 3000,
+        panelClass: ['error-snackbar']
+      });
+    }
+  });
+}
 
   goToRegister() {
     this.router.navigate(['/registro']);
