@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardComponent {
 
+  constructor(private router: Router) {}
+
   menuAbierto = false;
 
 toggleMenu() {
@@ -18,9 +20,13 @@ toggleMenu() {
   }
 
   
-navegar(ruta: string) {
-  window.location.href = ruta;
-  }
+navegar(ruta: string): void {
+  this.router.navigate([ruta]);
+}
+
+get mainMarginLeft(): string {
+  return this.menuAbierto ? '200px' : '60px';
+}
 
 cerrarSesion() {
   localStorage.clear();

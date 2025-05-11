@@ -17,12 +17,39 @@ export class ReportesService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
-
     return this.http.post(`${this.baseUrl}/crear`, data, { headers });
   }
 
-getCategorias(token: string): Observable<{ id: string; nombre: string }[]> {
-  const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-  return this.http.get<{ id: string; nombre: string }[]>(`http://localhost:8081/api/categorias/listar`, { headers });
-}
+    editarReporte(id: string, data: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+    return this.http.put(`${this.baseUrl}/${id}`, data, { headers });
+  }
+
+  eliminarReporte(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.delete(`${this.baseUrl}/${id}`, { headers });
+  }
+
+  obtenerReportesPorCiudad(ciudad: string): Observable<any[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<any[]>(`http://localhost:8081/api/reportes/reportes/ciudad?nombreCiudad=${ciudad}`, { headers });
+  }
+
+  listarMisReportes(): Observable<any[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<any[]>('http://localhost:8081/api/reportes/mis-reportes/', { headers });
+  }
+
+  getCategorias(token: string): Observable<{ id: string; nombre: string }[]> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<{ id: string; nombre: string }[]>(`http://localhost:8081/api/categorias/listar`, { headers });
+  }
+
 }
