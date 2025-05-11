@@ -46,4 +46,21 @@ export class MapaService {
      });
    });
  }
+pintarMarcadores(reportes: any[]) {
+  reportes.forEach(reporte => {
+    const popupHtml = `
+      <strong>${reporte.titulo}</strong><br>
+      <em>${reporte.descripcion}</em><br>
+      <span>Estado: <b>${reporte.estadoActual || 'Activo'}</b></span><br>
+      <small>Categoría: ${reporte.nombreCategoria}</small>
+    `;
+
+    new mapboxgl.Marker({
+      color: reporte.estadoActual === 'ELIMINADO' ? 'gray' : 'red'
+    })
+    .setLngLat([reporte.ubicacion.longitud, reporte.ubicacion.latitud])
+    .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
+    .addTo(this.mapa);
+  });
+}
 }
