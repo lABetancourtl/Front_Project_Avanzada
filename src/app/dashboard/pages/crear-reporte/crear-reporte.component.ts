@@ -54,7 +54,6 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
       })
     });
   
-     // 🔍 Aquí colocas la verificación del cambio de valor del select
   this.form.get('categoriaId')?.valueChanges.subscribe(value => {
     console.log('✅ Categoría seleccionada:', value);
   });
@@ -75,8 +74,6 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
       console.error('❌ No se encontró el token');
     }
   }
-  
-  
   
 
   ngAfterViewInit(): void {

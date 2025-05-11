@@ -8,6 +8,7 @@ import { ForgottenpasswordComponent } from './auth/forgottenpassword/forgottenpa
 import { NewpasswordComponent } from './auth/newpassword/newpassword.component';
 import { AuthGuard } from './auth.guard';
 import { CrearReporteComponent } from './dashboard/pages/crear-reporte/crear-reporte.component';
+import { EditarPerfilComponent } from './dashboard/pages/editar-perfil/editar-perfil.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,7 +17,8 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
       { path: '', component: InicioComponent },
-      { path: 'reportes/crear', component: CrearReporteComponent }
+      { path: 'reportes/crear', component: CrearReporteComponent },
+      { path: 'editarPerfil', component: EditarPerfilComponent },
     ]
   },
   { path: 'cambiarPassword', component: ForgottenpasswordComponent },

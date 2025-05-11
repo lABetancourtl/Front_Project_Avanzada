@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
@@ -17,6 +17,15 @@ export class AuthService {
         localStorage.setItem('authToken', response.token);
       })
     );
+  }
+
+  
+  obtenerUsuario(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<any>(`${this.baseUrl}/usuarios/${id}`, { headers });
   }
   
   
@@ -58,4 +67,7 @@ export class AuthService {
 function jwtDecode(token: string): any {
   throw new Error('Function not implemented.');
 }
+
+
+
 
