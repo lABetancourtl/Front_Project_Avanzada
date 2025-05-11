@@ -26,7 +26,7 @@ export class MisReportesComponent implements OnInit {
     this.reportesService.listarMisReportes().subscribe(data => {
       this.reportes = data.map((reporte: any) => ({
         ...reporte,
-        estado: reporte.estadoActual || 'Activo' // normaliza para la tabla
+        estado: reporte.estadoActual ?? 'SIN ESTADO'
       }));
     });
   }

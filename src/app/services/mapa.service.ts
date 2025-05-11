@@ -51,16 +51,14 @@ pintarMarcadores(reportes: any[]) {
     const popupHtml = `
       <strong>${reporte.titulo}</strong><br>
       <em>${reporte.descripcion}</em><br>
-      <span>Estado: <b>${reporte.estadoActual || 'Activo'}</b></span><br>
-      <small>Categoría: ${reporte.nombreCategoria}</small>
+      <small><b>Categoría:</b> ${reporte.nombreCategoria}</small><br>
+      <small><b>Estado:</b> ${reporte.estadoActual ?? 'SIN ESTADO'}</small>
     `;
 
-    new mapboxgl.Marker({
-      color: reporte.estadoActual === 'ELIMINADO' ? 'gray' : 'red'
-    })
-    .setLngLat([reporte.ubicacion.longitud, reporte.ubicacion.latitud])
-    .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
-    .addTo(this.mapa);
+    new mapboxgl.Marker({ color: 'red' })
+      .setLngLat([reporte.ubicacion.longitud, reporte.ubicacion.latitud])
+      .setPopup(new mapboxgl.Popup().setHTML(popupHtml))
+      .addTo(this.mapa);
   });
 }
 }

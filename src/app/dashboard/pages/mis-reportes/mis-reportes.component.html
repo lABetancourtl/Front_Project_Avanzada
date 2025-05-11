@@ -23,7 +23,7 @@
   <!-- Estado -->
   <ng-container matColumnDef="estado">
     <th mat-header-cell *matHeaderCellDef>Estado</th>
-    <td mat-cell *matCellDef="let r">{{ r.estado }}</td>
+    <td mat-cell *matCellDef="let r">{{ r.estadoActual || 'SIN ESTADO' }}</td>
   </ng-container>
 
   <!-- Acciones -->
