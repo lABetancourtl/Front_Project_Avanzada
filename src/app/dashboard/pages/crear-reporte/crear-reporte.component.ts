@@ -30,7 +30,6 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   isEditing = false;
   imagenBase64 = '';
-
   categorias: { _id: string; nombre: string }[] = [];
 
 
@@ -55,14 +54,17 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
       })
     });
   
-    // Obtener el token desde el almacenamiento local
+     // 🔍 Aquí colocas la verificación del cambio de valor del select
+  this.form.get('categoriaId')?.valueChanges.subscribe(value => {
+    console.log('✅ Categoría seleccionada:', value);
+  });
+
     const token = localStorage.getItem('authToken');
-    // Verificar si el token existe antes de hacer la solicitud
     if (token) {
       // Llamada al servicio para obtener las categorías, pasando el token en los headers
       this.reportesService.getCategorias(token).subscribe({
         next: categorias => {
-          console.log('🧠 Categorías recibidas:', categorias); // Este log debe aparecer
+          console.log('🧠 Categorías recibidas:', categorias);
           this.categorias = categorias;
         },
         error: err => {
