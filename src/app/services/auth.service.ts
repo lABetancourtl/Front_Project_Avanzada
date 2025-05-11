@@ -62,6 +62,17 @@ export class AuthService {
   }
   
 
+  deleteUser(id: string, headers: any) : Observable<any> {
+   
+    return this.http.delete(`${this.baseUrl}/usuarios/${id}`, { headers });
+    
+  }
+
+  cerrarSesion() {
+    localStorage.clear();
+    window.location.href = '/login';
+  }
+
  
 }
 function jwtDecode(token: string): any {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -12,7 +13,10 @@ import { CommonModule } from '@angular/common';
 export class DashboardAdminComponent {
   menuAbierto = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
@@ -22,9 +26,9 @@ export class DashboardAdminComponent {
     this.router.navigate([ruta]);
   }
 
-  cerrarSesion() {
-    localStorage.clear();
-    window.location.href = '/login';
+ 
+  cerraSesion() {
+    this.authService.cerrarSesion();
   }
 }
 

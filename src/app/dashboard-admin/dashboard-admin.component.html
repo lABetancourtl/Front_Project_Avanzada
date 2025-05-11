@@ -21,12 +21,13 @@
         ✅ <span *ngIf="menuAbierto" class="ms-2">Resolver reportes</span>
       </div>
 
-      <div class="menu-item disabled d-flex align-items-center mb-2 px-2">
+      <div class="menu-item disabled d-flex align-items-center mb-2 px-2"
+      (click)="navegar('/dashboard-admin/editarPerfilAdmin')">
         ⚙️ <span *ngIf="menuAbierto" class="ms-2">Editar Perfil</span>
       </div>
     </div>
 
-    <button class="logout-btn btn btn-sm btn-outline-light px-2 mx-auto d-flex align-items-center" (click)="cerrarSesion()">
+    <button class="logout-btn btn btn-sm btn-outline-light px-2 mx-auto d-flex align-items-center" (click)="cerraSesion()">
       🔒 <span *ngIf="menuAbierto">Cerrar Sesión</span>
     </button>
   </aside>

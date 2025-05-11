@@ -1,3 +1,4 @@
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -5,11 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-editar-perfil',
-  standalone: true,
+  selector: 'app-editar-perfil-admin',
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -17,16 +16,18 @@ import { AuthService } from '../../../services/auth.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  templateUrl: './editar-perfil.component.html',
-  styleUrls: ['./editar-perfil.component.css']
+  templateUrl: './editar-perfil-admin.component.html',
+  styleUrl: './editar-perfil-admin.component.css'
 })
-export class EditarPerfilComponent implements OnInit {
-
+export class EditarPerfilAdminComponent {
   form!: FormGroup;
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
 
-  constructor(private authService: AuthService) {}
+
+  constructor(
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -50,7 +51,6 @@ export class EditarPerfilComponent implements OnInit {
     }, (error: any) => {
       console.error('Error al obtener los datos del usuario:', error);
     });
-    
   }
 
   guardarCambios(): void {
@@ -96,4 +96,6 @@ export class EditarPerfilComponent implements OnInit {
       });
     }
   }
+  
+
 }
