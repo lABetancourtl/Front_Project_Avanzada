@@ -7,9 +7,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../../services/auth.service';
 
-
-
-
 @Component({
   selector: 'app-editar-perfil',
   standalone: true,
@@ -25,14 +22,11 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class EditarPerfilComponent implements OnInit {
 
-  constructor(
-    private authService: AuthService, 
-  ) {}
-
   form!: FormGroup;
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
 
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -41,14 +35,13 @@ export class EditarPerfilComponent implements OnInit {
       ciudad: ['', [Validators.required, Validators.minLength(3)]],   
     });
 
-
     const authToken = localStorage.getItem('authToken');
     const decodedToken: any = jwtDecode(authToken || '');
     const userId = decodedToken.id;
- 
+
     // Obtener los datos del usuario desde el backend
-    this.authService.obtenerUsuario(userId).subscribe((response: { data: any; }) => {
-      const usuario = response.data;  // Ajusta según la estructura de la respuesta de tu API
+    this.authService.obtenerUsuario(userId).subscribe((response: any) => {
+      const usuario = response.respuesta; // <- antes era response.data
       this.form.patchValue({
         nombre: usuario.nombre,
         telefono: usuario.telefono,
@@ -57,6 +50,7 @@ export class EditarPerfilComponent implements OnInit {
     }, (error: any) => {
       console.error('Error al obtener los datos del usuario:', error);
     });
+    
   }
 
   guardarCambios(): void {
@@ -64,14 +58,12 @@ export class EditarPerfilComponent implements OnInit {
       const datosActualizados = this.form.value;
 
       const authToken = localStorage.getItem('authToken');
-
       const decodedToken: any = jwtDecode(authToken || '');
       const userId = decodedToken.id;
-  
+
       const url = `http://localhost:8081/api/usuarios/${userId}`;
-  
       const headers = { Authorization: `Bearer ${authToken}` };
-  
+
       this.http.put(url, datosActualizados, { headers }).subscribe({
         next: (res: any) => {
           alert(res.mensaje || 'Perfil actualizado correctamente.');
