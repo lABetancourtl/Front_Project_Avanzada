@@ -1,0 +1,99 @@
+.detalle-reporte {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+.card-reporte, .card-comentarios {
+  width: 100%;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-reporte h2 {
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.card-reporte .info p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.card-comentarios h3 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: #444;
+}
+
+.lista-comentarios {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.lista-comentarios li {
+  background: #f0f4f8;
+  padding: 10px 14px;
+  border-left: 4px solid #2196f3;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.lista-comentarios .fecha {
+  font-weight: bold;
+  color: #333;
+}
+
+.lista-comentarios .mensaje {
+  margin: 4px 0 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.form-comentario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-comentario textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 90px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-comentario button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  align-self: flex-start;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-comentario button:hover {
+  background-color: #388e3c;
+}
+
+.no-comentarios {
+  color: #777;
+  font-style: italic;
+  margin-bottom: 10px;
+}

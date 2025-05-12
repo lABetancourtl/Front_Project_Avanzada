@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportesService } from '../../../services/reportes.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-reportes',
@@ -14,7 +15,10 @@ export class MisReportesComponent implements OnInit {
   reportes: any[] = [];
   cargando = true;
 
-  constructor(private reportesService: ReportesService) {}
+  constructor(
+    private reportesService: ReportesService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cargarMisReportes();
@@ -32,6 +36,10 @@ export class MisReportesComponent implements OnInit {
         alert('Error al cargar tus reportes');
       }
     });
+  }
+
+  verDetalle(id: string): void {
+  this.router.navigate(['dashboard/reportes/detalle', id]);
   }
 
   editarReporte(id: string): void {

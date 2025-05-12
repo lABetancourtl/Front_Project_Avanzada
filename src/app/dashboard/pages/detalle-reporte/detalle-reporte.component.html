@@ -1,0 +1,31 @@
+<div class="detalle-reporte">
+  <div class="card-reporte">
+    <h2>{{ reporte?.titulo }}</h2>
+
+    <div class="info">
+      <p><strong>📝 Descripción:</strong> {{ reporte?.descripcion }}</p>
+      <p><strong>📌 Estado:</strong> {{ reporte?.estadoActual }}</p>
+      <p><strong>📂 Categoría:</strong> {{ reporte?.nombreCategoria || '---' }}</p>
+    </div>
+  </div>
+
+  <div class="card-comentarios">
+    <h3>💬 Comentarios</h3>
+
+    <div *ngIf="comentarios.length === 0" class="no-comentarios">
+      No hay comentarios aún.
+    </div>
+
+    <ul class="lista-comentarios">
+      <li *ngFor="let c of comentarios">
+        <span class="fecha">{{ c.fecha | date:'short' }}</span>
+        <p class="mensaje">{{ c.mensaje }}</p>
+      </li>
+    </ul>
+
+    <div class="form-comentario" *ngIf="reporte?.estadoActual !== 'ELIMINADO'">
+      <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
+      <button (click)="agregarComentario()">➕ Comentar</button>
+    </div>
+  </div>
+</div>
