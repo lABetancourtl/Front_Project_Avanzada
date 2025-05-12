@@ -35,6 +35,15 @@ export class ReportesService {
     return this.http.delete(`${this.baseUrl}/${id}`, { headers });
   }
 
+  cambiarEstado(id: string, nuevoEstado: string): Observable<any> {
+  const token = localStorage.getItem('authToken');
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+  return this.http.put(`http://localhost:8081/api/reportes/api/reportes/${id}/estado`, { nuevoEstado }, { headers });
+}
+
   obtenerReportesPorCiudad(ciudad: string): Observable<any[]> {
     const token = localStorage.getItem('authToken');
     const headers = { Authorization: `Bearer ${token}` };

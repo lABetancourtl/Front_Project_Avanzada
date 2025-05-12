@@ -1,32 +1,62 @@
-:host {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  padding: 1rem;
-  box-sizing: border-box;
+.reportes-container {
+  padding: 30px;
 }
 
-.titulo {
-  text-align: center;
-  font-size: 1.8rem;
+h2 {
   margin-bottom: 20px;
-  font-weight: bold;
+}
+
+.loader {
+  font-style: italic;
+  color: #666;
 }
 
 .tabla-reportes {
   width: 100%;
-  border: 1px solid #ccc;
   border-collapse: collapse;
-  background: #fafafa;
 }
 
-th, td {
+.tabla-reportes th,
+.tabla-reportes td {
+  border: 1px solid #ccc;
   padding: 10px;
-  border: 1px solid #ddd;
   text-align: left;
+  vertical-align: middle;
 }
 
-button {
-  margin-right: 8px;
+.tabla-reportes th {
+  background-color: #f4f4f4;
+}
+
+.tabla-reportes button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.tabla-reportes button:hover {
+  background-color: #1976d2;
+}
+
+.btn-resuelto {
+  background-color: #4caf50 !important;
+}
+
+td span {
+  margin-left: 6px;
+  font-size: 1.2rem;
+}
+
+.btn-resuelto:hover {
+  background-color: #388e3c !important;
+}
+
+.no-result {
+  margin-top: 20px;
+  color: #999;
+  font-style: italic;
 }

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportesService } from '../../../services/reportes.service';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,41 +7,51 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './mis-reportes.component.html',
   styleUrls: ['./mis-reportes.component.css'],
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatButtonModule
-  ]
+  imports: [CommonModule]
 })
 export class MisReportesComponent implements OnInit {
 
   reportes: any[] = [];
-  columnas: string[] = ['titulo', 'fecha', 'categoria', 'estado', 'acciones'];
+  cargando = true;
 
   constructor(private reportesService: ReportesService) {}
 
   ngOnInit(): void {
-    this.reportesService.listarMisReportes().subscribe(data => {
-      this.reportes = data.map((reporte: any) => ({
-        ...reporte,
-        estado: reporte.estadoActual ?? 'SIN ESTADO'
-      }));
+    this.cargarMisReportes();
+  }
+
+  cargarMisReportes(): void {
+    this.cargando = true;
+    this.reportesService.listarMisReportes().subscribe({
+      next: (data) => {
+        this.reportes = data;
+        this.cargando = false;
+      },
+      error: () => {
+        this.cargando = false;
+        alert('Error al cargar tus reportes');
+      }
     });
   }
 
   editarReporte(id: string): void {
-    alert('🛠️ Pendiente implementar redirección a editar: ' + id);
+    alert('🛠️ Redirigir a vista de edición: ' + id);
   }
 
   eliminarReporte(id: string): void {
-    const confirmar = confirm('¿Estás seguro de eliminar este reporte?');
-    if (confirmar) {
+    if (confirm('¿Estás seguro de eliminar este reporte?')) {
       this.reportesService.eliminarReporte(id).subscribe(() => {
-        // Actualiza solo el estado en la tabla
-        const index = this.reportes.findIndex(r => r.id === id);
-        if (index !== -1) {
-          this.reportes[index].estado = 'ELIMINADO';
-        }
+        this.reportes = this.reportes.map(r =>
+          r.id === id ? { ...r, estadoActual: 'ELIMINADO' } : r
+        );
+      });
+    }
+  }
+
+  marcarComoResuelto(id: string): void {
+    if (confirm('¿Deseas marcar este reporte como RESUELTO?')) {
+      this.reportesService.cambiarEstado(id, 'RESUELTO').subscribe(() => {
+        this.cargarMisReportes();
       });
     }
   }
