@@ -26,7 +26,6 @@ export class DashboardAdminComponent {
     this.router.navigate([ruta]);
   }
 
- 
   cerraSesion() {
     this.authService.cerrarSesion();
   }
