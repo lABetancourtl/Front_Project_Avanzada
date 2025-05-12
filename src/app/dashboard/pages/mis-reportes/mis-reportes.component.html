@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>Título</th>
+        <th>Descripción</th>
         <th>Categoría</th>
         <th>Fecha</th>
         <th>Estado</th>
@@ -16,24 +17,25 @@
     <tbody>
       <tr *ngFor="let rep of reportes">
         <td>{{ rep.titulo }}</td>
-        <td>{{ rep.nombreCategoria }}</td>
+        <td>{{ rep.descripcion }}</td>
+        <td>{{ rep.nombreCategoria || '---' }}</td>
         <td>{{ rep.fecha | date:'short' }}</td>
-        <td>{{ rep.estadoActual }}
-        <span *ngIf="rep.estadoActual === 'RESUELTO'">✅</span>
-        <span *ngIf="rep.estadoActual === 'ELIMINADO'">❌</span>
-        </td>
-
         <td>
-        <!-- Mostrar solo si el estado NO es RESUELTO ni ELIMINADO -->
-        <ng-container *ngIf="rep.estadoActual !== 'RESUELTO' && rep.estadoActual !== 'ELIMINADO'">
+          {{ rep.estadoActual }}
+          <span *ngIf="rep.estadoActual === 'RESUELTO'">✅</span>
+          <span *ngIf="rep.estadoActual === 'ELIMINADO'">❌</span>
+        </td>
+        <td>
+          <button (click)="verDetalle(rep.id)">🕵️ Ver detalles</button>
+
+          <ng-container *ngIf="rep.estadoActual !== 'RESUELTO' && rep.estadoActual !== 'ELIMINADO'">
             <button (click)="editarReporte(rep.id)">✏️ Editar</button>
             <button (click)="eliminarReporte(rep.id)">🗑️ Eliminar</button>
-        </ng-container>
+          </ng-container>
 
-        <!-- Mostrar botón de RESUELTO solo si está VERIFICADO -->
-        <button *ngIf="rep.estadoActual === 'VERIFICADO'" (click)="marcarComoResuelto(rep.id)" class="btn-resuelto">
-           ✅ Marcar como resuelto
-        </button>
+          <button *ngIf="rep.estadoActual === 'VERIFICADO'" (click)="marcarComoResuelto(rep.id)" class="btn-resuelto">
+            ✅ Marcar como resuelto
+          </button>
         </td>
       </tr>
     </tbody>

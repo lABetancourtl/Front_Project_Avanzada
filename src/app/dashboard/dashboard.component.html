@@ -11,9 +11,11 @@
     </button>
 
     <div class="flex-grow-1 d-flex flex-column">
-      <div class="menu-item disabled d-flex align-items-center mb-2 px-2">
-        🗂️
-        <span *ngIf="menuAbierto" class="ms-2">Ver todos los reportes</span>
+      <div class="menu-item d-flex align-items-center mb-2 px-2"
+      (click)="navegar('/dashboard')"
+      >
+        🏠
+        <span *ngIf="menuAbierto" class="ms-2">Inicio</span>
       </div>
 
       <div

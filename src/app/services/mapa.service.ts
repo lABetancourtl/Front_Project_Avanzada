@@ -46,13 +46,14 @@ export class MapaService {
      });
    });
  }
-pintarMarcadores(reportes: any[]) {
+ pintarMarcadores(reportes: any[]) {
   reportes.forEach(reporte => {
     const popupHtml = `
       <strong>${reporte.titulo}</strong><br>
       <em>${reporte.descripcion}</em><br>
-      <small><b>Categoría:</b> ${reporte.nombreCategoria}</small><br>
-      <small><b>Estado:</b> ${reporte.estadoActual ?? 'SIN ESTADO'}</small>
+      <small><b>Categoría:</b> ${reporte.nombreCategoria ?? '—'}</small><br>
+      <small><b>Estado:</b> ${reporte.estadoActual ?? 'SIN ESTADO'}</small><br><br>
+      <a href="/dashboard/reportes/detalle/${reporte.id}" target="_self" style="color: #007bff; text-decoration: underline;">📄 Ver detalles</a>
     `;
 
     new mapboxgl.Marker({ color: 'red' })
@@ -61,4 +62,5 @@ pintarMarcadores(reportes: any[]) {
       .addTo(this.mapa);
   });
 }
+
 }
