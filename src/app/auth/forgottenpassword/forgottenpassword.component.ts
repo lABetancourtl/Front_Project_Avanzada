@@ -8,10 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgottenpassword',
   imports: [
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -23,14 +25,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './forgottenpassword.component.css'
 })
 export class ForgottenpasswordComponent {
-
+  showSuccessAlert = false;
+  showErrorAlert = false;
+  errorMessage = '';
 
   email: string = '';
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
   ) {}
 
   enviarCodigo() {
@@ -38,12 +41,13 @@ export class ForgottenpasswordComponent {
 
     this.authService.enviarCodigoVerificacion(payload).subscribe({
       next: (response) => {
-        this.snackBar.open(response.mensaje, 'Cerrar', { duration: 3000 });
-        // Redirigir o mostrar otro paso si es necesario
+        this.showSuccessAlert = true;
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 5000);
       },
       error: (error) => {
-        this.snackBar.open('Error al enviar el código. Intenta de nuevo.', 'Cerrar', { duration: 3000 });
-        console.error(error);
+        this.showErrorAlert = true;
       }
     });
   }

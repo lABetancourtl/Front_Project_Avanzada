@@ -41,19 +41,20 @@ export class ReportesService {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json'
   };
-  return this.http.put(`http://localhost:8081/api/reportes/api/reportes/${id}/estado`, { nuevoEstado }, { headers });
+  return this.http.put(`${this.baseUrl}/api/reportes/${id}/estado`, { nuevoEstado }, { headers });
 }
 
   obtenerReportesPorCiudad(ciudad: string): Observable<any[]> {
     const token = localStorage.getItem('authToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<any[]>(`http://localhost:8081/api/reportes/reportes/ciudad?nombreCiudad=${ciudad}`, { headers });
+    return this.http.get<any[]>(`${this.baseUrl}/reportes/ciudad?nombreCiudad=${ciudad}`, { headers });
   }
 
   listarMisReportes(): Observable<any[]> {
     const token = localStorage.getItem('authToken');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<any[]>('http://localhost:8081/api/reportes/mis-reportes/', { headers });
+    return this.http.get<any[]>(`${this.baseUrl}/mis`, { headers });
+
   }
 
   getCategorias(token: string): Observable<{ id: string; nombre: string }[]> {

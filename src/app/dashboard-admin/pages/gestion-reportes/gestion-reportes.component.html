@@ -18,9 +18,9 @@
     <tbody>
       <tr *ngFor="let rep of reportes">
         <td>{{ rep.titulo }}</td>
-        <td>{{ rep.categoriaId }}</td>
+        <td>{{ rep.nombreCategoria }}</td>
         <td class="descripcion">{{ rep.descripcion }}</td>
-        <td>{{ rep.clienteId || '—' }}</td>
+        <td>{{ rep.nombreCliente || '—' }}</td>
         <td>{{ rep.fecha | date:'short' }}</td>
         <td>
           <select [formControl]="estadoSeleccionado[rep.id]">

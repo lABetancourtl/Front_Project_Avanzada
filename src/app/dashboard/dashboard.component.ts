@@ -34,4 +34,15 @@ cerrarSesion() {
   localStorage.clear();
   window.location.href = '/login';
   }
+
+
+menuItems = [
+  { icono: 'assets/house.svg', nombre: 'Inicio', ruta: '/dashboard' },
+  { icono: 'assets/file-earmark-plus.svg', nombre: 'Nuevo reporte', ruta: '/dashboard/reportes/crear' },
+  { icono: 'assets/bookmark.svg', nombre: 'Mis reportes', ruta: '/dashboard/reportes/mis' },
+  { icono: 'assets/bell.svg', nombre: 'Notificaciones', ruta: '#' },
+  { icono: 'assets/person-gear.svg', nombre: 'Editar perfil', ruta: '/dashboard/editarPerfil' },
+];
+
+
 }

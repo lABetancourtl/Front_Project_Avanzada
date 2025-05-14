@@ -6,15 +6,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule,],
+  imports: [
+    CommonModule,
+    FormsModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatButtonModule,],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-
+  showSuccessAlert = false;
+  showErrorAlert = false;
+  errorMessage = '';
 
   goToLogin(): void {
     this.router.navigate(['/login']);
@@ -33,7 +41,6 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private snackBar: MatSnackBar
   ) {}
 
   onRegister() {
@@ -45,20 +52,15 @@ export class RegisterComponent {
       ciudad: this.ciudad
     };
   
-    this.authService.register(usuario).subscribe({
+     this.authService.register(usuario).subscribe({
       next: res => {
-        console.log('✅ Registro exitoso:', res);
-  
-        this.snackBar.open('Código Enviado\nIngresa el código de 6 dígitos que has recibido', 'Cerrar', {
-          duration: 5000,
-          panelClass: ['custom-snackbar']
-        });
+        this.showSuccessAlert = true;
+        setTimeout(() => {
+          this.router.navigate(['/autenticacion']);
+        }, 3000);
       },
       error: err => {
-        console.error('❌ Error en registro:', err);
-        this.snackBar.open('Error al registrar usuario', 'Cerrar', {
-          duration: 3000
-        });
+        this.showErrorAlert = true;
       }
     });
   }

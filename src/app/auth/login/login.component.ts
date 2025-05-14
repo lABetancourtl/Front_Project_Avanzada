@@ -6,10 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   imports: [
+    CommonModule,
     FormsModule, 
     MatFormFieldModule, 
     MatInputModule, 
@@ -21,7 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string = '';  // Para mensajes de error
+  showSuccessAlert = false;
+  showErrorAlert = false;
+  errorMessage = '';
 
   constructor(
     private authService: AuthService, 
@@ -44,12 +48,8 @@ onLogin() {
 
         const payload = JSON.parse(atob(token.split('.')[1]));
         const rol = payload.rol || payload.role || '';
-
-        this.snackBar.open('¡Login exitoso! Redirigiendo...', 'Cerrar', {
-          duration: 3000,
-          panelClass: ['success-snackbar']
-        });
-
+        this.showSuccessAlert = true;
+      
         setTimeout(() => {
           if (rol === 'ADMINISTRADOR') {
             this.router.navigate(['/dashboard-admin']);
@@ -61,11 +61,7 @@ onLogin() {
     },
     error: (error) => {
       this.errorMessage = 'Credenciales incorrectas';
-      console.error('Error de login:', error);
-      this.snackBar.open(this.errorMessage, 'Cerrar', {
-        duration: 3000,
-        panelClass: ['error-snackbar']
-      });
+      this.showErrorAlert = true;
     }
   });
 }
