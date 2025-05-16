@@ -5,101 +5,134 @@
   overflow: hidden;
 }
 
+/* Sidebar base */
 .sidebar {
-  background: #f8f9fa;
+  background: #263046;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 80px;
-  padding: 0;
+  padding-top: 1rem;
   transition: width 0.3s ease;
   z-index: 1000;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
-
-
-.sidebar .nav-link:hover {
-  background-color: #374151;
-}
-
-.sidebar .nav-link.disabled {
-  cursor: not-allowed;
-  color: #6c757d;
-  opacity: 0.7;
-}
-
-
-.sidebar.expanded .nav-link::after {
-  content: attr(title);
-  font-size: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-main {
-  flex-grow: 1;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-  padding: 0 !important; /* Elimina cualquier padding */
-  margin: 0 !important; /* Elimina cualquier margen */
-}
-
-/* Estilos para el modo collapsed */
-.sidebar.collapsed .nav-link::after {
-  display: none;
-}
-
-/* Estilo para el elemento activo */
-.sidebar .nav-link.active {
-  background-color: #e9ecef;
-  border-right: 3px solid #0d6efd;
-}
-
-
-
-/* Asegúrate que el router-outlet y sus hijos ocupen todo el espacio */
-router-outlet + * {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Si usas un contenedor específico para el mapa */
-.map-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-
+/* Expandido y colapsado */
 .sidebar.collapsed {
   width: 60px;
-  transition: width 0.3s ease;
 }
 
 .sidebar.expanded {
   width: 200px;
-  transition: width 0.3s ease;
 }
 
+/* Botón toggle estilo moderno */
+.toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.toggle-btn:hover,
+.toggle-btn:focus {
+  background-color: #beccd8;
+  outline: none;
+}
+
+/* Navegación */
 .sidebar .nav-link {
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  transition: all 0.3s ease;
+  padding: 0.75rem 1rem;
+  color: #d8bebe;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
 }
 
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus {
+  background-color: #beccd8;
+  color: #2469f6;
+  outline: none;
+}
+
+.sidebar .nav-link.active {
+  background-color: #ca5a38;
+  color: white;
+}
+
+/* Icono margen */
+.sidebar .nav-link img {
+  flex-shrink: 0;
+}
+
+/* Texto sidebar */
 .sidebar-text {
   white-space: nowrap;
   overflow: hidden;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Ocultar texto si está colapsado */
 .sidebar.collapsed .sidebar-text {
   opacity: 0;
   pointer-events: none;
+  transform: translateX(-20px);
 }
 
+.main-content {
+  flex-grow: 1;
+  height: 100vh;
+  overflow: hidden; /* para que el mapa no tenga scroll propio */
+  background-color: #ffffff;
+  transition: margin-left 0.3s ease;
+  /* ELIMINAR padding para que mapa no tenga espacio */
+  padding: 0; 
+}
+
+/* El contenedor del mapa debe ocupar todo el main sin margen ni padding */
+.map-container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.weather-widget {
+  position: fixed; /* o absolute si prefieres dentro de main */
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(38, 48, 70, 0.8); /* fondo semitransparente oscuro */
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  font-size: 0.9rem;
+  max-width: 220px;
+  z-index: 1500; /* mayor que el sidebar */
+  user-select: none;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .weather-widget {
+    max-width: 150px;
+    font-size: 0.8rem;
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+}

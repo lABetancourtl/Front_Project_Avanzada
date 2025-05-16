@@ -2,32 +2,65 @@
   <aside
     class="sidebar position-fixed h-100"
     [ngClass]="{ 'collapsed': !menuAbierto, 'expanded': menuAbierto }"
-    style="background-color: #7cbcf1; top: 0; left: 0; z-index: 1000;"
   >
     <!-- Botón de toggle -->
-    <a (click)="toggleMenu()" class="d-block p-3 link-dark text-decoration-none" style="cursor: pointer;" title="Expandir/Colapsar">
-      <img src="assets/list.svg" alt="Toggle Sidebar" width="24" height="24">
-    </a>
+    <button
+      (click)="toggleMenu()"
+      class="toggle-btn d-flex align-items-center justify-content-center"
+      aria-label="Expandir o colapsar menú"
+      title="Expandir/Colapsar"
+      type="button"
+    >
+      <img src="assets/list.svg" alt="Toggle Sidebar" width="24" height="24" />
+    </button>
 
     <!-- Navegación -->
-    <ul class="nav flex-column w-100">
+    <ul class="nav flex-column w-100 mt-3">
       <li class="nav-item" *ngFor="let item of menuItems">
-        <div class="nav-link d-flex align-items-center px-3" (click)="navegar(item.ruta)" style="cursor: pointer;">
-          <img [src]="item.icono" [alt]="item.nombre" width="24" height="24" class="me-2" />
-          <span *ngIf="menuAbierto" class="sidebar-text" style="color: #000000;" >{{ item.nombre }}</span>
+        <div
+          class="nav-link d-flex align-items-center px-3"
+          (click)="navegar(item.ruta)"
+          role="button"
+          tabindex="0"
+          style="cursor: pointer;"
+        >
+          <img [src]="item.icono" [alt]="item.nombre" width="24" height="24" class="me-3" />
+          <span *ngIf="menuAbierto" class="sidebar-text">{{ item.nombre }}</span>
         </div>
       </li>
     </ul>
 
-    <div class="mt-auto">
-      <div class="nav-link py-2 px-2 d-flex align-items-center" (click)="cerrarSesion()" style="cursor: pointer;">
-        <img src="assets/box-arrow-left.svg" alt="Cerrar sesión" width="24" height="24" class="me-2">
-        <span *ngIf="menuAbierto" class="sidebar-text " style="color: #000000;">Cerrar sesión</span>
+    <div class="mt-auto mb-2 ">
+      <div
+        class="nav-link d-flex align-items-center"
+        (click)="cerrarSesion()"
+        role="button"
+        tabindex="0"
+        style="cursor: pointer;"
+      >
+        <img src="assets/box-arrow-left.svg" alt="Cerrar sesión" width="24" height="24" class="me-3" />
+        <span *ngIf="menuAbierto" class="sidebar-text">Cerrar sesión</span>
       </div>
     </div>
   </aside>
 
   <main class="main-content" style="margin-left: 60px;">
     <router-outlet></router-outlet>
+    
+
+ <div class="weather-widget">
+  <div *ngIf="loadingWeather">Cargando clima...</div>
+  <div *ngIf="errorWeather" class="text-danger">{{ errorWeather }}</div>
+
+  <div *ngIf="weatherData">
+    <p><strong>{{ weatherData.name }}</strong></p>
+    <p>Temperatura: {{ weatherData.main.temp }} °C</p>
+    <p>Condición: {{ weatherData.weather[0].description }}</p>
+    <!-- Si quieres, aquí podrías poner un ícono del clima -->
+  </div>
+</div>
+
+
+
   </main>
 </div>
