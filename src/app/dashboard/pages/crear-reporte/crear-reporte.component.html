@@ -1,47 +1,45 @@
-<h2 class="title">{{ isEditing ? 'Editar Reporte' : 'Crear Reporte' }}</h2>
+<div class="form-container-wrapper">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <h2 class="title text-center">{{ isEditing ? 'Editar Reporte' : 'Crear Reporte' }}</h2>
 
-<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-form-field appearance="outline" class="field w-100">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Título</mat-label>
-    <input matInput formControlName="titulo" />
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="field w-100">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="categoriaId">
+        <mat-option *ngFor="let c of categorias" [value]="c.id">
+          {{ c.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Categoría</mat-label>
-    <mat-select formControlName="categoriaId">
-      <mat-option *ngFor="let c of categorias" [value]="c.id">
-        {{ c.nombre }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  
+    <mat-form-field appearance="outline" class="field w-100">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion"></textarea>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline" class="field">
-    <mat-label>Descripción</mat-label>
-    <textarea matInput formControlName="descripcion"></textarea>
-  </mat-form-field>
+    <mat-slide-toggle formControlName="importante" class="mb-3">¿Importante?</mat-slide-toggle>
 
-  <mat-slide-toggle formControlName="importante">¿Importante?</mat-slide-toggle>
+    <div class="map-container">
+      <div id="mapa"></div>
+    </div>
 
-  <div class="map-container">
-    <div id="mapa"></div>
-  </div>
+    <div class="upload-container">
+      <label for="fileInput">Sube una imagen</label>
+      <input type="file" id="fileInput" (change)="onImageSelected($event)" />
+    </div>
 
-  <div class="upload-container">
-    <label for="fileInput">Sube una imagen</label>
-    <input type="file" id="fileInput" (change)="onImageSelected($event)" />
-  </div>
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ isEditing ? 'Guardar cambios' : 'Aceptar' }}
+      </button>    
+      <button mat-raised-button color="warn" type="button" (click)="cancelar()">
+        {{ isEditing ? 'Cancelar edición' : 'Cancelar' }}
+      </button>    
+    </div>
 
-  <div class="button-group">
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-      {{ isEditing ? 'Guardar cambios' : 'Aceptar' }}
-    </button>    
-    <button mat-raised-button color="warn" type="button" (click)="cancelar()">
-      {{ isEditing ? 'Cancelar edición' : 'Cancelar' }}
-    </button>    
-  </div>
-
-</form>
-
+  </form>
+</div>

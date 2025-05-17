@@ -6,11 +6,13 @@
   <div class="login-right d-flex flex-column justify-content-center p-5 bg-white shadow rounded" style="min-height: 100vh;">
     <h2 class="text-center mb-5 fw-bold text-primary">Iniciar Sesión</h2>
 
+    <!-- Alerta de éxito -->
     <div *ngIf="showSuccessAlert" class="alert alert-success alert-dismissible fade show" role="alert">
       <strong>¡Registro exitoso!</strong>
       <button type="button" class="btn-close" (click)="showSuccessAlert = false" aria-label="Close"></button>
     </div>
 
+    <!-- Alerta de error -->
     <div *ngIf="showErrorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong>Error en registro:</strong> Por favor verifica tus datos e intenta nuevamente.
       <button type="button" class="btn-close" (click)="showErrorAlert = false" aria-label="Close"></button>
@@ -46,8 +48,21 @@
       </div>
 
       <div class="d-grid gap-3 mb-3">
-        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-semibold">Iniciar</button>
-        <button type="button" class="btn btn-outline-primary btn-lg rounded-pill fw-semibold" (click)="goToRegister()">Registrarse</button>
+        <!-- Botón Iniciar -->
+        <button 
+          type="submit" 
+          class="btn btn-primary btn-lg rounded-pill fw-semibold d-flex align-items-center justify-content-center"
+          [disabled]="isLoading"
+        >
+          <span *ngIf="!isLoading">Iniciar</span>
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span *ngIf="isLoading" class="ms-2">Cargando...</span>
+        </button>
+
+        <!-- Botón Registrarse -->
+        <button type="button" class="btn btn-outline-primary btn-lg rounded-pill fw-semibold" (click)="goToRegister()">
+          Registrarse
+        </button>
       </div>
 
       <p class="text-center text-muted small">

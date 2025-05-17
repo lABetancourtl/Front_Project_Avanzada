@@ -26,6 +26,7 @@ export class LoginComponent {
   showSuccessAlert = false;
   showErrorAlert = false;
   errorMessage = '';
+  isLoading = false; 
 
   constructor(
     private authService: AuthService, 
@@ -35,6 +36,8 @@ export class LoginComponent {
 
 // Paso 1: Detectar el rol desde el token y redirigir al panel adecuado
 onLogin() {
+  this.isLoading = true; // Inicia carga
+
   const userData = {
     email: this.email,
     password: this.password
@@ -49,8 +52,9 @@ onLogin() {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const rol = payload.rol || payload.role || '';
         this.showSuccessAlert = true;
-      
+
         setTimeout(() => {
+          this.isLoading = false; // Finaliza carga antes de redirigir
           if (rol === 'ADMINISTRADOR') {
             this.router.navigate(['/dashboard-admin']);
           } else {
@@ -60,11 +64,13 @@ onLogin() {
       }
     },
     error: (error) => {
+      this.isLoading = false;
       this.errorMessage = 'Credenciales incorrectas';
       this.showErrorAlert = true;
     }
   });
 }
+
 
   goToRegister() {
     this.router.navigate(['/registro']);
