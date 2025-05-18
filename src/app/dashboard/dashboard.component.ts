@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
       .then(coords => {
         this.weatherService.getWeather(coords.lat, coords.lon).subscribe({
           next: res => {
-            this.weatherData = JSON.parse(res);  // Parseamos el JSON en string
+            this.weatherData = JSON.parse(res); 
             this.loadingWeather = false;
           },
           error: err => {

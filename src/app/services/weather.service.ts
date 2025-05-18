@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WeatherService {
-  private apiUrl = 'http://localhost:8081/api/weather';  // Cambia a tu endpoint real
+  private apiUrl = 'http://localhost:8081/api/weather';  
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class WeatherService {
       .set('lat', lat.toString())
       .set('lon', lon.toString());
 
-    // El backend devuelve un JSON como texto, por eso responseType: 'text'
+    
     return this.http.get(this.apiUrl, { params, headers, responseType: 'text' });
   }
 }

@@ -7,8 +7,8 @@
 
 /* Sidebar base */
 .sidebar {
-  background: #263046;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  background: #fffaf2;
+  box-shadow: 6px 3px 2px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: #d8bebe;
+  color: #585858;
   font-weight: 600;
   border-radius: 8px;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -62,8 +62,8 @@
 
 .sidebar .nav-link:hover,
 .sidebar .nav-link:focus {
-  background-color: #beccd8;
-  color: #2469f6;
+  background-color: #cecece;
+  color: #001b4e;
   outline: none;
 }
 
@@ -113,20 +113,69 @@
 
 
 .weather-widget {
-  position: fixed; /* o absolute si prefieres dentro de main */
+  position: fixed;
   bottom: 1rem;
   right: 1rem;
-  background-color: rgba(38, 48, 70, 0.8); /* fondo semitransparente oscuro */
-  color: white;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  font-size: 0.9rem;
-  max-width: 220px;
-  z-index: 1500; /* mayor que el sidebar */
+  background: linear-gradient(145deg, #2d3a5a73, #391e20);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  font-size: 0.95rem;
+  max-width: 260px;
+  z-index: 1500;
   user-select: none;
   pointer-events: auto;
+  font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.3s ease;
 }
+
+.weather-widget:hover {
+  transform: translateY(-4px);
+}
+
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.city {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.weather-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.temp {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.condition {
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+
+.error {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
 
 @media (max-width: 768px) {
   .weather-widget {

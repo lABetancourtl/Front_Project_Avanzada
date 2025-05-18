@@ -48,17 +48,26 @@
     <router-outlet></router-outlet>
     
 
- <div class="weather-widget">
+<div class="weather-widget">
   <div *ngIf="loadingWeather">Cargando clima...</div>
-  <div *ngIf="errorWeather" class="text-danger">{{ errorWeather }}</div>
+  <div *ngIf="errorWeather" class="error">{{ errorWeather }}</div>
 
-  <div *ngIf="weatherData">
-    <p><strong>{{ weatherData.name }}</strong></p>
-    <p>Temperatura: {{ weatherData.main.temp }} °C</p>
-    <p>Condición: {{ weatherData.weather[0].description }}</p>
-    <!-- Si quieres, aquí podrías poner un ícono del clima -->
+  <div *ngIf="weatherData" class="weather-content">
+    <div class="weather-header">
+      <p class="city">{{ weatherData.name }}</p>
+      <img
+        *ngIf="weatherData.weather[0].icon"
+        [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'"
+        alt="Ícono del clima"
+        class="weather-icon"
+      />
+    </div>
+
+    <p class="temp">{{ weatherData.main.temp }} °C</p>
+    <p class="condition">{{ weatherData.weather[0].description }}</p>
   </div>
 </div>
+
 
 
 
