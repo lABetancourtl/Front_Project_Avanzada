@@ -1,5 +1,8 @@
 <div class="reportes-container">
-  <h2>📋 Mis Reportes</h2>
+  <h2>
+  <img src='assets/bookmark.svg' style="height: 1em; vertical-align: middle;"> 
+  Mis Reportes
+</h2>
 
   <div *ngIf="cargando" class="loader">Cargando reportes...</div>
 
@@ -22,21 +25,42 @@
         <td>{{ rep.fecha | date:'short' }}</td>
         <td>
           {{ rep.estadoActual }}
-          <span *ngIf="rep.estadoActual === 'RESUELTO'">✅</span>
-          <span *ngIf="rep.estadoActual === 'ELIMINADO'">❌</span>
+          <span *ngIf="rep.estadoActual === 'RESUELTO'">
+            <i class="bi bi-patch-check-fill me-2"></i>
+          </span>
+          <span *ngIf="rep.estadoActual === 'ELIMINADO'">
+            <i class="bi bi-x-circle me-2"></i>
+          </span>
         </td>
         <td>
-          <button (click)="verDetalle(rep.id)">🕵️ Ver detalles</button>
+          <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
 
-          <ng-container *ngIf="rep.estadoActual !== 'RESUELTO' && rep.estadoActual !== 'ELIMINADO'">
-            <button (click)="editarReporte(rep.id)">✏️ Editar</button>
-            <button (click)="eliminarReporte(rep.id)">🗑️ Eliminar</button>
-          </ng-container>
+            <!-- Botón Ver Detalles -->
+            <button type="button" class="btn btn-primary" (click)="verDetalle(rep.id)">
+              <i class="bi bi-eye me-2"></i>
+              Ver detalles
+            </button>
 
-          <button *ngIf="rep.estadoActual === 'VERIFICADO'" (click)="marcarComoResuelto(rep.id)" class="btn-resuelto">
-            ✅ Marcar como resuelto
-          </button>
+            <!-- Botones con ngIf -->
+            <ng-container *ngIf="rep.estadoActual !== 'RESUELTO' && rep.estadoActual !== 'ELIMINADO'">
+              <button type="button" class="btn btn-primary" (click)="editarReporte(rep.id)"> 
+                <i class="bi bi-pencil-square me-2"></i>
+                Editar
+              </button>
+              <button type="button" class="btn btn-danger" (click)="eliminarReporte(rep.id)">
+                <i class="bi bi-file-earmark-x me-2"></i>
+                Eliminar
+              </button>
+            </ng-container>
+
+            <!-- Botón Marcar como resuelto -->
+            <button *ngIf="rep.estadoActual === 'VERIFICADO'" (click)="marcarComoResuelto(rep.id)" class="btn btn-success">
+              <i class="bi bi-patch-check me-2"></i>
+              Marcar como resuelto
+            </button>
+          </div>
         </td>
+
       </tr>
     </tbody>
   </table>

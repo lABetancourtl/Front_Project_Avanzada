@@ -28,19 +28,9 @@ h2 {
   background-color: #f4f4f4;
 }
 
-.tabla-reportes button {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 6px;
-}
 
-.tabla-reportes button:hover {
-  background-color: #1976d2;
-}
+
+
 
 .btn-resuelto {
   background-color: #4caf50 !important;
@@ -60,3 +50,5 @@ td span {
   color: #999;
   font-style: italic;
 }
+
+

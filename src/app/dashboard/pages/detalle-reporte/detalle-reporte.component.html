@@ -1,31 +1,107 @@
-<div class="detalle-reporte">
-  <div class="card-reporte">
-    <h2>{{ reporte?.titulo }}</h2>
+<style>
+  .card-modern {
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
 
-    <div class="info">
-      <p><strong>📝 Descripción:</strong> {{ reporte?.descripcion }}</p>
-      <p><strong>📌 Estado:</strong> {{ reporte?.estadoActual }}</p>
-      <p><strong>📂 Categoría:</strong> {{ reporte?.nombreCategoria || '---' }}</p>
+  .comment-bubble {
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .comment-author {
+    font-weight: 600;
+    color: #495057;
+  }
+
+  .comment-date {
+    font-size: 0.85rem;
+    color: #868e96;
+  }
+
+  .divider {
+    border-top: 1px solid #dee2e6;
+    margin: 1.5rem 0;
+  }
+
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #0d6efd;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 50%;
+  }
+</style>
+
+<div class="container my-5">
+  <!-- Publicación -->
+  <div class="card card-modern mb-4">
+    <div class="card-body">
+      <div class="d-flex align-items-center mb-3">
+        <div class="profile-icon me-3">R</div>
+        <div>
+          <h2 class="h5 mb-0">{{ reporte?.titulo }}</h2>
+          <small class="text-muted">Publicado recientemente</small>
+        </div>
+      </div>
+
+      <p class="mb-3"><strong>📝 Descripción:</strong> {{ reporte?.descripcion }}</p>
+
+      <div class="mb-2">
+        <span class="me-2"><strong>📌 Estado:</strong></span>
+        <span class="badge bg-{{ reporte?.estadoActual === 'ABIERTO' ? 'success' : reporte?.estadoActual === 'CERRADO' ? 'secondary' : 'warning' }} text-uppercase">
+          {{ reporte?.estadoActual }}
+        </span>
+      </div>
+
+      <div>
+        <strong>📂 Categoría:</strong>
+        <span class="text-muted">{{ reporte?.nombreCategoria || '---' }}</span>
+      </div>
     </div>
   </div>
 
-  <div class="card-comentarios">
-    <h3>💬 Comentarios</h3>
+  <!-- Comentarios -->
+  <div class="card card-modern">
+    <div class="card-body">
+      <h3 class="h5 mb-3">💬 Comentarios</h3>
 
-    <div *ngIf="comentarios.length === 0" class="no-comentarios">
-      No hay comentarios aún.
-    </div>
+      <div *ngIf="comentarios.length === 0" class="alert alert-light border">
+        No hay comentarios aún. ¡Sé el primero en comentar!
+      </div>
 
-    <ul class="lista-comentarios">
-      <li *ngFor="let c of comentarios">
-        <span class="fecha">{{ c.fecha | date:'short' }}</span>
-        <p class="mensaje">{{ c.mensaje }}</p>
-      </li>
-    </ul>
+      <ul class="list-unstyled" *ngIf="comentarios.length > 0">
+        <li *ngFor="let c of comentarios" class="mb-3">
+          <div class="d-flex">
+            <div class="profile-icon me-3">C</div>
+            <div>
+              <div class="comment-bubble">
+                <p class="mb-1">{{ c.mensaje }}</p>
+              </div>
+              <div class="comment-date mt-1">{{ c.fecha | date:'short' }}</div>
+            </div>
+          </div>
+        </li>
+      </ul>
 
-    <div class="form-comentario" *ngIf="reporte?.estadoActual !== 'ELIMINADO'">
-      <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe tu comentario..."></textarea>
-      <button (click)="agregarComentario()">➕ Comentar</button>
+      <div class="divider"></div>
+
+      <!-- Nuevo comentario -->
+      <div *ngIf="reporte?.estadoActual !== 'ELIMINADO'">
+        <div class="mb-3">
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="nuevoComentario"
+            placeholder="Escribe tu comentario..."></textarea>
+        </div>
+        <button class="btn btn-primary w-100" (click)="agregarComentario()">➕ Comentar</button>
+      </div>
     </div>
   </div>
 </div>
