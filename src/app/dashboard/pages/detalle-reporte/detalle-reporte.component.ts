@@ -16,6 +16,8 @@ export class DetalleReporteComponent implements OnInit {
   reporte: any;
   comentarios: any[] = [];
   nuevoComentario: string = '';
+  imagenAbierta: boolean = false;
+  imagenModal: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +28,9 @@ export class DetalleReporteComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
 
-    this.reportesService.obtenerReportesPorCiudad('Armenia').subscribe(reportes => {
-      this.reporte = reportes.find((r: any) => r.id === id);
+    this.reportesService.obtenerReportePorId(id).subscribe(reporte => {
+      this.reporte = reporte;
+      console.log('Reporte cargado:', this.reporte);
     });
 
     this.comentariosService.obtenerPorReporte(id).subscribe(data => {
@@ -57,5 +60,13 @@ export class DetalleReporteComponent implements OnInit {
         this.comentarios = data;
       });
     });
+  }
+
+  abrirImagen(url: string): void {
+    this.imagenModal = url;
+  }
+
+  cerrarImagen(): void {
+    this.imagenModal = null;
   }
 }

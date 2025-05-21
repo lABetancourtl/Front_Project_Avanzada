@@ -1,75 +1,53 @@
-<style>
-  .card-modern {
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .comment-bubble {
-    background-color: #f8f9fa;
-    border-radius: 1rem;
-    padding: 0.75rem 1rem;
-  }
-
-  .comment-author {
-    font-weight: 600;
-    color: #495057;
-  }
-
-  .comment-date {
-    font-size: 0.85rem;
-    color: #868e96;
-  }
-
-  .divider {
-    border-top: 1px solid #dee2e6;
-    margin: 1.5rem 0;
-  }
-
-  .profile-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #0d6efd;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    border-radius: 50%;
-  }
-</style>
-
 <div class="container my-5">
   <!-- Publicación -->
-  <div class="card card-modern mb-4">
+  <div class="card-modern mb-4">
     <div class="card-body">
       <div class="d-flex align-items-center mb-3">
         <div class="profile-icon me-3">R</div>
         <div>
           <h2 class="h5 mb-0">{{ reporte?.titulo }}</h2>
+          <div *ngIf="reporte?.foto" class="my-2">
+            <img
+              *ngIf="reporte.foto"
+              [src]="reporte.foto"
+              alt="Imagen del reporte"
+              style="height: 50px; width: auto; border-radius: 4px; cursor: pointer;"
+              (click)="abrirImagen(reporte.foto)"
+            />
+          </div>
           <small class="text-muted">Publicado recientemente</small>
         </div>
       </div>
 
-      <p class="mb-3"><strong>📝 Descripción:</strong> {{ reporte?.descripcion }}</p>
+      <p class="mb-3"><strong>Descripción:</strong> {{ reporte?.descripcion }}</p>
 
       <div class="mb-2">
-        <span class="me-2"><strong>📌 Estado:</strong></span>
-        <span class="badge bg-{{ reporte?.estadoActual === 'ABIERTO' ? 'success' : reporte?.estadoActual === 'CERRADO' ? 'secondary' : 'warning' }} text-uppercase">
+        <span class="me-2"><strong>Estado:</strong></span>
+        <span
+          class="badge text-uppercase"
+          [ngClass]="{
+            'bg-success': reporte?.estadoActual === 'ABIERTO',
+            'bg-secondary': reporte?.estadoActual === 'CERRADO',
+            'bg-warning': reporte?.estadoActual === 'EN PROCESO'
+          }">
           {{ reporte?.estadoActual }}
         </span>
       </div>
 
       <div>
-        <strong>📂 Categoría:</strong>
+        <strong>Categoría:</strong>
         <span class="text-muted">{{ reporte?.nombreCategoria || '---' }}</span>
       </div>
     </div>
   </div>
 
   <!-- Comentarios -->
-  <div class="card card-modern">
+  <div class="card-modern">
     <div class="card-body">
-      <h3 class="h5 mb-3">💬 Comentarios</h3>
+      <h3 class="h5 mb-3">
+        <i class="bi bi-chat me-1"></i>
+        Comentarios
+      </h3>
 
       <div *ngIf="comentarios.length === 0" class="alert alert-light border">
         No hay comentarios aún. ¡Sé el primero en comentar!
@@ -100,8 +78,16 @@
             [(ngModel)]="nuevoComentario"
             placeholder="Escribe tu comentario..."></textarea>
         </div>
-        <button class="btn btn-primary w-100" (click)="agregarComentario()">➕ Comentar</button>
+        <button class="btn btn-primary w-100" (click)="agregarComentario()">
+          <i class="bi bi-plus-lg me-1"></i>
+          Comentar
+        </button>
       </div>
     </div>
   </div>
+</div>
+<!-- Modal para mostrar imagen -->
+<div class="modal-imagen" *ngIf="imagenModal" (click)="cerrarImagen()">
+  <img [src]="imagenModal" alt="Vista previa de imagen" />
+  <button class="btn-cerrar" (click)="cerrarImagen(); $event.stopPropagation()">×</button>
 </div>

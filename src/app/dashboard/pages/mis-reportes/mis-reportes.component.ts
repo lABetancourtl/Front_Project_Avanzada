@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './mis-reportes.component.html',
   styleUrls: ['./mis-reportes.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
 export class MisReportesComponent implements OnInit {
-
   reportes: any[] = [];
   cargando = true;
+  imagenModal: string | null = null;
 
   constructor(
     private reportesService: ReportesService,
@@ -34,12 +34,12 @@ export class MisReportesComponent implements OnInit {
       error: () => {
         this.cargando = false;
         alert('Error al cargar tus reportes');
-      }
+      },
     });
   }
 
   verDetalle(id: string): void {
-  this.router.navigate(['dashboard/reportes/detalle', id]);
+    this.router.navigate(['dashboard/reportes/detalle', id]);
   }
 
   editarReporte(id: string): void {
@@ -49,7 +49,7 @@ export class MisReportesComponent implements OnInit {
   eliminarReporte(id: string): void {
     if (confirm('¿Estás seguro de eliminar este reporte?')) {
       this.reportesService.eliminarReporte(id).subscribe(() => {
-        this.reportes = this.reportes.map(r =>
+        this.reportes = this.reportes.map((r) =>
           r.id === id ? { ...r, estadoActual: 'ELIMINADO' } : r
         );
       });
@@ -63,4 +63,13 @@ export class MisReportesComponent implements OnInit {
       });
     }
   }
+
+  abrirImagen(url: string): void {
+    this.imagenModal = url;
+  }
+
+  cerrarImagen(): void {
+    this.imagenModal = null;
+  }
 }
+

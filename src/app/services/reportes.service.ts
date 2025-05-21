@@ -50,6 +50,13 @@ export class ReportesService {
     return this.http.get<any[]>(`${this.baseUrl}/reportes/ciudad?nombreCiudad=${ciudad}`, { headers });
   }
 
+obtenerReportePorId(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<any[]>(`${this.baseUrl}/${id}`, { headers });
+  }
+
+
   listarMisReportes(): Observable<any[]> {
     const token = localStorage.getItem('authToken');
     const headers = { Authorization: `Bearer ${token}` };

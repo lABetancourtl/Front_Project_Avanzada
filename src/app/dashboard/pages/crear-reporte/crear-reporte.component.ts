@@ -9,6 +9,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReportesService } from '../../../services/reportes.service';
 import { MapaService } from '../../../services/mapa.service';
 import { Router } from '@angular/router';
+import { ImagenService } from '../../../services/imagen.service';
+
 
 @Component({
   selector: 'app-crear-reporte',
@@ -37,7 +39,8 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private reportesService: ReportesService,
     private mapaService: MapaService,
-    private router: Router
+    private router: Router,
+    private imagenService: ImagenService,
   ) {}
 
   ngOnInit(): void {
@@ -92,21 +95,26 @@ export class CrearReporteComponent implements OnInit, AfterViewInit {
   onImageSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagenBase64 = reader.result as string;
-        this.form.get('foto')?.setValue(this.imagenBase64);
-      };
-      reader.readAsDataURL(file);
+      this.imagenService.subirImagen(file).subscribe({
+        next: (url: string) => {
+          console.log('✅ Imagen subida:', url);
+          this.form.get('foto')?.setValue(url);
+        },
+        error: (err) => {
+          console.error('❌ Error al subir imagen', err);
+        }
+      });
     }
   }
+
+
 
 onSubmit(): void {
   if (this.form.valid) {
     this.reportesService.crearReporte(this.form.value).subscribe({
       next: () => {
         alert('✅ Reporte enviado correctamente');
-        this.router.navigate(['/dashboard']); // ✅ Redirige usando Angular
+        this.router.navigate(['/dashboard']); 
       },
       error: err => {
         console.error(err);
