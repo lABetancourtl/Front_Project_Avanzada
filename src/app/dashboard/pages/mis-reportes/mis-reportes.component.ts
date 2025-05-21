@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportesService } from '../../../services/reportes.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-mis-reportes',
   standalone: true,
   templateUrl: './mis-reportes.component.html',
   styleUrls: ['./mis-reportes.component.css'],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+  RouterModule],
 })
 export class MisReportesComponent implements OnInit {
   reportes: any[] = [];

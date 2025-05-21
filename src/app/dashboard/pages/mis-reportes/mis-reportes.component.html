@@ -1,3 +1,12 @@
+<!-- Mensaje si no hay reportes -->
+<!-- Mensaje si no hay reportes -->
+<div *ngIf="!cargando && reportes.length === 0" class="alert alert-info text-center my-4">
+  Aún no tienes reportes. Crea el primer reporte dando
+  <a [routerLink]="['/dashboard/reportes/crear']">clic aquí</a>.
+</div>
+
+
+<!-- Tabla de reportes -->
 <table *ngIf="!cargando && reportes.length" class="tabla-reportes">
   <thead>
     <tr>

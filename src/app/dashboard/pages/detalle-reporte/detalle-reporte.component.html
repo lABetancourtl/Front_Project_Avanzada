@@ -11,8 +11,9 @@
               *ngIf="reporte.foto"
               [src]="reporte.foto"
               alt="Imagen del reporte"
-              style="height: 50px; width: auto; border-radius: 4px; cursor: pointer;"
+              style="max-height: 300px; width: auto; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;"
               (click)="abrirImagen(reporte.foto)"
+              class="img-fluid"
             />
           </div>
           <small class="text-muted">Publicado recientemente</small>
