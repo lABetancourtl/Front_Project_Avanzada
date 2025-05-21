@@ -45,7 +45,7 @@ export class MisReportesComponent implements OnInit {
   }
 
   editarReporte(id: string): void {
-    alert('🛠️ Redirigir a vista de edición: ' + id);
+    this.router.navigate(['dashboard/reportes/editar', id]);
   }
 
   eliminarReporte(id: string): void {

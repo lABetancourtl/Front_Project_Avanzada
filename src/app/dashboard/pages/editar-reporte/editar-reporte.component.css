@@ -1,0 +1,169 @@
+/* Body y html deben ocupar todo el alto */
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #f8f9fa;
+}
+
+/* Contenedor envolvente que centra verticalmente */
+.form-container-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 15px;
+  box-sizing: border-box;
+}
+
+/* Estilo del formulario */
+.form-container {
+  max-width: 1500px;
+  width: 100%;
+  height: 90vh;
+  overflow-y: auto;
+  padding: 40px 30px 50px 30px;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+/* Título */
+.title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #0d6efd;
+  text-align: center;
+}
+
+
+
+/* Campos de formulario */
+.field {
+  width: 100%;
+}
+
+/* Contenedor del mapa */
+.map-container {
+  position: relative;
+  height: 440px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#mapa {
+  width: 100%;
+  height: 100%;
+}
+
+/* Subida de archivos */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 500;
+  color: #212529;
+}
+
+.upload-container label {
+  cursor: pointer;
+}
+
+.upload-container input[type="file"] {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.upload-container input[type="file"]:focus,
+.upload-container input[type="file"]:hover {
+  border-color: #0d6efd;
+  outline: none;
+}
+
+/* Botones */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* Estilo para el botón primario (Aceptar) */
+.btn-primary {
+  background: linear-gradient(135deg, #4e9ef1, #1d69e0); /* Gradiente de azul */
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 50px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1d69e0, #0b52a1); /* Cambio de gradiente al pasar el cursor */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
+}
+
+/* Estilo para el botón de advertencia (Cancelar) */
+.btn-outline-danger {
+  border: 2px solid #ff6b6b; /* Borde rojo */
+  color: #ff6b6b;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 50px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+  background-color: transparent; /* Fondo transparente */
+}
+
+.btn-outline-danger:hover {
+  background-color: #ffebeb; /* Fondo rojo suave al pasar el cursor */
+  color: #e60000; /* Cambia el color del texto al rojo oscuro */
+}
+
+
+/* Nueva estructura de dos columnas */
+.form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* Lado izquierdo: campos */
+.left-column {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Lado derecho: mapa */
+.right-column {
+  flex: 1 1 300px;
+}
+
+/* Asegurar responsividad */
+@media (max-width: 768px) {
+  .form-content {
+    flex-direction: column;
+  }
+
+  .left-column, .right-column {
+    width: 100%;
+  }
+}

@@ -1,0 +1,55 @@
+<div class="form-container-wrapper">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <h2 class="title text-center">{{ isEditing ? 'Editar Reporte' : 'Crear Reporte' }}</h2>
+
+    <div class="form-content">
+      <!-- Lado izquierdo: Campos -->
+      <div class="left-column">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="titulo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="categoriaId">
+            <mat-option *ngFor="let c of categorias" [value]="c.id">
+              {{ c.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
+
+        <mat-slide-toggle formControlName="importante" class="mb-3">¿Importante?</mat-slide-toggle>
+
+        <div class="upload-container">
+          <label for="fileInput">Sube una imagen</label>
+          <input type="file" id="fileInput" (change)="onImageSelected($event)" />
+        </div>
+      </div>
+
+      <!-- Lado derecho: Mapa -->
+      <div class="right-column">
+        <div class="map-container">
+          <div id="mapa"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="form.invalid">
+        {{ isEditing ? 'Guardar cambios' : 'Aceptar' }}
+      </button>    
+
+      <button type="button" class="btn btn-outline-danger btn-lg w-100" (click)="cancelar()">
+        {{ isEditing ? 'Cancelar edición' : 'Cancelar' }}
+      </button>    
+    </div>
+
+
+  </form>
+</div>

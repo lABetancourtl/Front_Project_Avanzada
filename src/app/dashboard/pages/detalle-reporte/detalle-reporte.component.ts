@@ -17,6 +17,7 @@ export class DetalleReporteComponent implements OnInit {
   comentarios: any[] = [];
   nuevoComentario: string = '';
   imagenAbierta: boolean = false;
+  mostrarDetalles: boolean = false;
   imagenModal: string | null = null;
 
   constructor(

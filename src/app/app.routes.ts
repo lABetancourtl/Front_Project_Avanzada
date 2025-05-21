@@ -16,6 +16,7 @@ import { GestionCategoriasComponent } from './dashboard-admin/pages/gestion-cate
 import { GestionReportesComponent } from './dashboard-admin/pages/gestion-reportes/gestion-reportes.component';
 import { EditarPerfilAdminComponent } from './dashboard-admin/editar-perfil-admin/editar-perfil-admin.component';
 import { DetalleReporteComponent } from './dashboard/pages/detalle-reporte/detalle-reporte.component';
+import { EditarReporteComponent } from './dashboard/pages/editar-reporte/editar-reporte.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +28,8 @@ export const routes: Routes = [
       { path: 'reportes/crear', component: CrearReporteComponent },
       { path: 'editarPerfil', component: EditarPerfilComponent },
       { path: 'reportes/mis', component: MisReportesComponent },
-      { path: 'reportes/detalle/:id', component: DetalleReporteComponent }
+      { path: 'reportes/detalle/:id', component: DetalleReporteComponent },
+      { path: 'reportes/editar/:id', component: EditarReporteComponent }
     ]
   },
   {
