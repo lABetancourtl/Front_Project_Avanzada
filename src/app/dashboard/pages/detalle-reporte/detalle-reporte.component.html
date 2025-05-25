@@ -1,8 +1,7 @@
 <div class="container my-5">
   <!-- Publicación -->
   <div class="card-modern mb-4">
-    <div class="card-body text-center">
-
+    <div class="card-body">
       <!-- Perfil centrado -->
       <div class="d-flex justify-content-center align-items-center mb-3">
         <div class="profile-icon me-2">R</div>
@@ -15,28 +14,13 @@
         <i class="bi" [ngClass]="mostrarDetalles ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
       </div>
 
-      <!-- Imagen centrada -->
-      <div *ngIf="reporte?.foto" class="my-3 d-flex justify-content-center">
-        <img
-          [src]="reporte.foto"
-          alt="Imagen del reporte"
-          style="max-height: 300px; width: auto; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s;"
-          (click)="abrirImagen(reporte.foto)"
-          class="img-fluid"
-        />
-      </div>
-
-
-
       <!-- Contenido desplegable -->
       <div *ngIf="mostrarDetalles" class="mt-3 text-start">
-
         <p><strong>Descripción:</strong> {{ reporte?.descripcion }}</p>
 
         <div class="mb-2">
           <span class="me-2"><strong>Estado:</strong></span>
-          <span
-            class="badge text-uppercase"
+          <span class="badge text-uppercase"
             [ngClass]="{
               'bg-success': reporte?.estadoActual === 'ABIERTO',
               'bg-secondary': reporte?.estadoActual === 'CERRADO',
@@ -54,47 +38,67 @@
     </div>
   </div>
 
-  <!-- Comentarios -->
-  <div class="card-modern">
-    <div class="card-body">
-      <h3 class="h5 mb-3">
-        <i class="bi bi-chat me-1"></i>
-        Comentarios
-      </h3>
-
-      <div *ngIf="comentarios.length === 0" class="alert alert-light border">
-        No hay comentarios aún. ¡Sé el primero en comentar!
-      </div>
-
-      <ul class="list-unstyled" *ngIf="comentarios.length > 0">
-        <li *ngFor="let c of comentarios" class="mb-3">
-          <div class="d-flex">
-            <div class="profile-icon me-3">C</div>
-            <div>
-              <div class="comment-bubble">
-                <p class="mb-1">{{ c.mensaje }}</p>
-              </div>
-              <div class="comment-date mt-1">{{ c.fecha | date:'short' }}</div>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <div class="divider"></div>
-
-      <!-- Nuevo comentario -->
-      <div *ngIf="reporte?.estadoActual !== 'ELIMINADO'">
-        <div class="mb-3">
-          <textarea
-            class="form-control"
-            rows="3"
-            [(ngModel)]="nuevoComentario"
-            placeholder="Escribe tu comentario..."></textarea>
+  <!-- Contenido dividido: Imagen a la izquierda, Comentarios a la derecha -->
+  <div class="row g-4">
+    <!-- Imagen -->
+    <div class="col-md-5">
+        <!-- Imagen centrada, ahora más grande -->
+        <div *ngIf="reporte?.foto" class="d-flex justify-content-center align-items-center h-100">
+          <img
+            [src]="reporte.foto"
+            alt="Imagen del reporte"
+            style="width: 100%; max-height: 700px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer;"
+            (click)="abrirImagen(reporte.foto)"
+          />
         </div>
-        <button class="btn btn-primary w-100" (click)="agregarComentario()">
-          <i class="bi bi-plus-lg me-1"></i>
-          Comentar
-        </button>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="col-md-7">
+      <div class="card-modern h-100">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h3 class="h5 mb-3 ms-3">
+              <i class="bi bi-chat me-1"></i>
+              Comentarios
+            </h3>
+
+            <div *ngIf="comentarios.length === 0" class="alert alert-light border">
+              No hay comentarios aún. ¡Sé el primero en comentar!
+            </div>
+
+            <ul class="list-unstyled shadow-sm p-3 rounded bg-white" *ngIf="comentarios.length > 0">
+              <li *ngFor="let c of comentarios" class="mb-3">
+                <div class="d-flex">
+                  <div class="profile-icon me-3">C</div>
+                  <div>
+                    <div class="comment-bubble">
+                      <p class="mb-1">{{ c.mensaje }}</p>
+                    </div>
+                    <div class="comment-date mt-1">{{ c.fecha | date:'short' }}</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <div class="divider my-3"></div>
+          </div>
+
+          <!-- Nuevo comentario -->
+          <div *ngIf="reporte?.estadoActual !== 'ELIMINADO'">
+            <div class="mb-3">
+              <textarea
+                class="form-control"
+                rows="3"
+                [(ngModel)]="nuevoComentario"
+                placeholder="Escribe tu comentario..."></textarea>
+            </div>
+            <button class="btn btn-primary w-100" (click)="agregarComentario()">
+              <i class="bi bi-plus-lg me-1"></i>
+              Comentar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -105,3 +109,5 @@
   <img [src]="imagenModal" alt="Vista previa de imagen" />
   <button class="btn-cerrar" (click)="cerrarImagen(); $event.stopPropagation()">×</button>
 </div>
+
+

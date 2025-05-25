@@ -56,7 +56,7 @@ export class ReportesService {
     return this.http.get<any[]>(`${this.baseUrl}/${id}`, { headers });
   }
 
-actualizarReportePorId(id: string, data: any): Observable<any> {
+  actualizarReportePorId(id: string, data: any): Observable<any> {
   const token = localStorage.getItem('authToken');
   const headers = { Authorization: `Bearer ${token}` };
   return this.http.put<any>(`${this.baseUrl}/${id}`, data, { headers });
