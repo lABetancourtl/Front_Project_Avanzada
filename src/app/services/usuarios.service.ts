@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UsuariosService {
 
-  private baseUrl = 'http://localhost:8081/api/usuarios';
+  private baseUrl = 'https://project-avanzada-zo88.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) {}
 

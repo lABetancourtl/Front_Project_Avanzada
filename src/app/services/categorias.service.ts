@@ -13,7 +13,7 @@ export interface Categoria {
 })
 export class CategoriasService {
 
-  private baseUrl = 'http://localhost:8081/api/categorias';
+  private baseUrl = 'https://project-avanzada-zo88.onrender.com/api/categorias';
 
   constructor(private http: HttpClient) {}
 

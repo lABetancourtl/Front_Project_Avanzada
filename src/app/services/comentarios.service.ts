@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComentariosService {
-  private baseUrl = 'http://localhost:8081/api/comentarios';
+  private baseUrl = 'https://project-avanzada-zo88.onrender.com/api/comentarios';
 
   constructor(private http: HttpClient) {}
 

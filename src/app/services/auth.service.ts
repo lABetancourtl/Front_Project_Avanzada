@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class AuthService {
   
-  private baseUrl = 'http://localhost:8081/api'; //Conexión al back
+  private baseUrl = 'https://project-avanzada-zo88.onrender.com/api'; //Conexión al back
 
   constructor(private http: HttpClient) {}
 
