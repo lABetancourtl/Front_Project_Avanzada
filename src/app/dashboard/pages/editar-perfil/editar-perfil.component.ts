@@ -61,7 +61,7 @@ export class EditarPerfilComponent implements OnInit {
       const decodedToken: any = jwtDecode(authToken || '');
       const userId = decodedToken.id;
 
-      const url = `http://localhost:8081/api/usuarios/${userId}`;
+      const url = `https://project-avanzada-zo88.onrender.com/api/usuarios/${userId}`;
       const headers = { Authorization: `Bearer ${authToken}` };
 
       this.http.put(url, datosActualizados, { headers }).subscribe({
