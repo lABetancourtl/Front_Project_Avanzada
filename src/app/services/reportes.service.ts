@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ReportesService {
 
-  private baseUrl = 'http://localhost:8081/api/reportes';
+  private baseUrl = 'https://project-avanzada-zo88.onrender.com/api/reportes';
 
   constructor(private http: HttpClient) {}
 
@@ -74,7 +74,7 @@ actualizarReportePorId(id: string, data: any): Observable<any> {
 
   getCategorias(token: string): Observable<{ id: string; nombre: string }[]> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<{ id: string; nombre: string }[]>(`http://localhost:8081/api/categorias/listar`, { headers });
+    return this.http.get<{ id: string; nombre: string }[]>(`https://project-avanzada-zo88.onrender.com/api/categorias/listar`, { headers });
   }
 
 }

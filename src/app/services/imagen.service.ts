@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ImagenService {
 
-  private readonly baseUrl = 'http://localhost:8081/api/imagenes'; 
+  private readonly baseUrl = 'https://project-avanzada-zo88.onrender.com/api/imagenes'; 
 
   constructor(private http: HttpClient) {}
 
